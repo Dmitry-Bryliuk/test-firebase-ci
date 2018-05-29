@@ -12,6 +12,9 @@ notifications:
     on_success: never
     on_failure : never
 
+script:
+  - echo 'Hello Test Firebase CI'
+
 install:
   - npm install -g --silent firebase-tools
 
