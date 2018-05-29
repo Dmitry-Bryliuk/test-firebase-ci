@@ -1,0 +1,29 @@
+language: node_js
+
+node_js:
+  - "7"
+
+branches:
+  only:
+    - master
+
+notifications:
+  email:
+    on_success: never
+    on_failure : never
+
+before_install:
+
+install:
+  - npm install -g --silent firebase-tools 
+
+# Assume bundler is being used, therefore
+# the `install` step will run `bundle install` by default.
+script: 
+  #continue even after error
+  #- set -e 
+
+after_success:
+  - firebase deploy --token "$FIREBASE_API_TOKEN" --non-interactive
+
+  sudo: false # route your build to the container-based infrastructure for a faster build
