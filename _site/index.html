@@ -6,7 +6,22 @@
     <title>Welcome to Firebase Hosting</title>
 
     <!-- Add Firebase to your web app -->
-    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script src="/__/firebase/5.0.4/firebase.js"></script>
+
+    <!-- update the version number as needed -->
+    <script src="/__/firebase/5.0.4/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script src="/__/firebase/5.0.4/firebase-auth.js"></script>
+    <!--script src="/__/firebase/5.0.4/firebase-database.js"></script-->
+    <script src="/__/firebase/5.0.4/firebase-firestore.js"></script>
+    <!--script src="/__/firebase/5.0.4/firebase-messaging.js"></script-->
+    <!--script src="/__/firebase/5.0.4/firebase-functions.js"></script-->
+    <!--script src="/__/firebase/5.0.4/firebase-storage.js"></script-->
+
+    <!-- initialize the SDK after all desired features are loaded -->
+    <!-- loaded below -->
+    <!--script src="/__/firebase/init.js"></script-->
+
     <script>
       // Initialize Firebase
       var config = {
@@ -18,21 +33,11 @@
         messagingSenderId: "785630941677"
       };
       firebase.initializeApp(config);
-      // Initialize Cloud Firestore through Firebase
+      const firestore = firebase.firestore();
+      const settings = {timestampsInSnapshots: true};
+      firestore.settings(settings);      // Initialize Cloud Firestore through Firebase
       var db = firebase.firestore();
     </script>
-
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/5.0.4/firebase-app.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/5.0.4/firebase-auth.js"></script>
-    <script defer src="/__/firebase/5.0.4/firebase-database.js"></script>
-    <script defer src="/__/firebase/5.0.4/firebase-firestore.js"></script>
-    <script defer src="/__/firebase/5.0.4/firebase-messaging.js"></script>
-    <script defer src="/__/firebase/5.0.4/firebase-functions.js"></script>
-    <script defer src="/__/firebase/5.0.4/firebase-storage.js"></script>
-    <!-- initialize the SDK after all desired features are loaded -->
-    <script defer src="/__/firebase/init.js"></script>
 
     <style media="screen">
       body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
