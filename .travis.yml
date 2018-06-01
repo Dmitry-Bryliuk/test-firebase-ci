@@ -13,10 +13,12 @@ notifications:
     on_failure : never
 
 
-before_deploy: "echo 'ready?'"
-
+# install using travis firebase provider
 # https://docs.travis-ci.com/user/deployment/firebase/
 # on windows encrypt the token with https://pypi.org/project/travis-encrypt/
+
+before_deploy: "echo 'ready?'"
+
 deploy:
   provider: firebase
   token:
@@ -31,5 +33,13 @@ script:
 
 install:
   - echo 'Hello Test Firebase CI'
+
+# alternative way to install:
+#script:
+#  - echo 'Hello Test Firebase CI'
+#install:
+#  - npm install -g --silent firebase-tools
+#after_success:
+#  - firebase deploy --token "$FIREBASE_API_TOKEN" --non-interactive
 
 sudo: false # route your build to the container-based infrastructure for a faster build
