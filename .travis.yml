@@ -12,8 +12,11 @@ notifications:
     on_success: never
     on_failure : never
 
+
 before_deploy: "echo 'ready?'"
 
+# https://docs.travis-ci.com/user/deployment/firebase/
+# on windows encrypt the token with https://pypi.org/project/travis-encrypt/
 deploy:
   provider: firebase
   token:
