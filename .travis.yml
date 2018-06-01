@@ -22,4 +22,11 @@ deploy:
 
 after_deploy: "echo 'done!'"
 
+
+script:
+  - echo 'Hello Test Firebase CI'
+
+install:
+  - echo 'Hello Test Firebase CI'
+
 sudo: false # route your build to the container-based infrastructure for a faster build
