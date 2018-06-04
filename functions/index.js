@@ -1,23 +1,6 @@
 const functions = require('firebase-functions');
-
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
-
-var admin = require('firebase-admin');
-
-var serviceAccount = require('./serviceAccountKey.json');
-
-// Initialize on Cloud Functions
-admin.initializeApp(functions.config().firebase);
-
-/*admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://test-ci-b56e8.firebaseio.com"
-});*/
+const admin = require('firebase-admin');
+admin.initializeApp();
 
 // https://us-central1-test-ci-b56e8.cloudfunctions.net/addMessage
 
