@@ -27,8 +27,8 @@ const admin = require('firebase-admin');
 // Require and initialize firebase-functions-test in "online mode" with your project's
 // credentials and service account key.
 const projectConfig = {
-  projectId: 'my-project',
-  databaseURL: 'https://my-project.firebaseio.com'
+  projectId: "test-ci-b56e8",
+  databaseURL: "https://test-ci-b56e8.firebaseio.com"
 };
 const test = require('firebase-functions-test')(projectConfig, './service-account-key.json');
 
