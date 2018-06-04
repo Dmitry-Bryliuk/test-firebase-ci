@@ -28,7 +28,8 @@ const admin = require('firebase-admin');
 // credentials and service account key.
 const projectConfig = {
   projectId: "test-ci-b56e8",
-  databaseURL: "https://test-ci-b56e8.firebaseio.com"
+  databaseURL: "https://test-ci-b56e8.firebaseio.com",
+  storageBucket: "test-ci-b56e8.appspot.com"
 };
 const test = require('firebase-functions-test')(projectConfig, './service-account-key.json');
 
@@ -50,12 +51,12 @@ describe('Cloud Functions', () => {
   });
 
   describe('makeUpperCase', () => {
-    // Test Case: setting messages/11111/original to 'input' should cause 'INPUT' to be written to
+    // Test Case: setting messages/11111/original to 'makeUpperCase' should cause 'INPUT' to be written to
     // messages/11111/uppercase
     it('should upper case input and write it to /uppercase', () => {
       // [START assertOnline]
       // Create a DataSnapshot with the value 'input' and the reference path 'messages/11111/original'.
-      const snap = test.database.makeDataSnapshot('input', 'messages/11111/original');
+      const snap = test.database.makeDataSnapshot('makeUpperCase', 'messages/11111/original');
 
       // Wrap the makeUppercase function
       const wrapped = test.wrap(myFunctions.makeUppercase);
@@ -66,7 +67,7 @@ describe('Cloud Functions', () => {
         // `admin.initializeApp()` before this line.
         return admin.database().ref('messages/11111/uppercase').once('value').then((createdSnap) => {
           // Assert that the value is the uppercased version of our input.
-          assert.equal(createdSnap.val(), 'INPUT');
+          return assert.equal(createdSnap.val(), 'MAKEUPPERCASE');
         });
       });
       // [END assertOnline]
@@ -76,7 +77,7 @@ describe('Cloud Functions', () => {
   describe('addMessage', () => {
     it('should return a 303 redirect', (done) => {
       // A fake request object, with req.query.text set to 'input'
-      const req = { query: {text: 'input'} };
+      const req = { query: {text: 'addMessage'} };
       // A fake response object, with a stubbed redirect function which does some assertions
       const res = {
         redirect: (code, url) => {
