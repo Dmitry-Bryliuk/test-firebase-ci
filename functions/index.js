@@ -40,6 +40,9 @@ exports.addData = functions.https.onRequest((req, res) => {
         last: 'Lovelace',
         born: 1815
     });
+    console.log("setAda");
+    console.log(setAda);
+    setAda.then(r => console.log(r)).catch(e => {});
 
     var aTuringRef = db.collection('users').doc('aturing2');
 
@@ -49,6 +52,9 @@ exports.addData = functions.https.onRequest((req, res) => {
         'last': 'Turing',
         'born': 1912
     });
+    console.log("setAlan");
+    console.log(setAlan);
+    setAlan.then(r => console.log(r)).catch(e => {});
 
-    return "OK";
+    return res.redirect(303, "OK");
 });

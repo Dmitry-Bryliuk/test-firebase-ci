@@ -48,9 +48,55 @@ describe('Cloud Functions', () => {
     test.cleanup();
     // Reset the database.
     admin.database().ref('messages').remove();
+    // reset firestore data
+    admin.firestore().collection('users').get()
+      .then((snapshot) => {
+        snapshot.forEach((doc) => {
+          doc.ref.delete();
+        });
+        return;
+      })
+      .catch((err) => {
+        console.log('Error getting documents', err);
+      });
   });
 
-  describe('makeUpperCase', () => {
+  describe('addData', () => {
+    it('should return a 303 redirect', (done) => {
+      /*db.collection('users').get()
+        .then((snapshot) => {
+          assert.equal(snapshot.size, 0);
+          return;
+        })
+        .catch((err) => {
+          console.log('Error getting documents', err);
+        });*/
+
+      const req = { query: { text: 'addMessage' } };
+      const res = {
+        redirect: (code, url) => {
+          //assert.equal(code, 303);
+          var db = admin.firestore();
+          return db.collection('users').get()
+            .then((snapshot) => {
+              //assert.equal(snapshot.size, 2);
+              snapshot.forEach((doc) => {
+                console.log(doc.id, '=>', doc.data());
+              });
+              done();
+              return;
+            })
+            .catch((err) => {
+              console.log('Error getting documents', err);
+              done();
+            });
+        }
+      };
+      myFunctions.addData(req, res);
+    });
+  });
+
+  /*describe('makeUpperCase', () => {
     // Test Case: setting messages/11111/original to 'makeUpperCase' should cause 'INPUT' to be written to
     // messages/11111/uppercase
     it('should upper case input and write it to /uppercase', () => {
@@ -94,5 +140,5 @@ describe('Cloud Functions', () => {
       // assertions in the response object to be evaluated.
       myFunctions.addMessage(req, res);
     });
-  });
+  });*/
 })

@@ -52,6 +52,20 @@ describe('Cloud Functions', () => {
     test.cleanup();
   });
 
+  describe('addData', () => {
+    it('should return a 303 redirect', () => {
+      var db = admin.firestore();
+
+      var docRef = db.collection('users').doc('alovelace2');
+
+      var setAda = docRef.set({
+        first: 'Ada',
+        last: 'Lovelace',
+        born: 1815
+      }).then(r => console.log(r));
+    })
+  });
+
   describe('makeUpperCase', () => {
     // Test Case: setting messages/{pushId}/original to 'input' should cause 'INPUT' to be written to
     // messages/{pushId}/uppercase
@@ -118,7 +132,7 @@ describe('Cloud Functions', () => {
 
       // [START assertHTTP]
       // A fake request object, with req.query.text set to 'input'
-      const req = { query: {text: 'input'} };
+      const req = { query: { text: 'input' } };
       // A fake response object, with a stubbed redirect function which asserts that it is called
       // with parameters 303, 'new_ref'.
       const res = {
