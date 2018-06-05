@@ -41,6 +41,17 @@ describe('Cloud Functions', () => {
     // This includes our cloud functions, which can now be accessed at myFunctions.makeUppercase
     // and myFunctions.addMessage
     myFunctions = require('../index');
+    // reset firestore data
+    admin.firestore().collection('users').get()
+      .then((snapshot) => {
+        snapshot.forEach((doc) => {
+          doc.ref.delete();
+        });
+        return;
+      })
+      .catch((err) => {
+        console.log('Error getting documents', err);
+      });
   });
 
   after(() => {
@@ -63,19 +74,19 @@ describe('Cloud Functions', () => {
 
   describe('addData', () => {
     it('should return a 303 redirect', (done) => {
-      /*db.collection('users').get()
+      admin.firestore().collection('users').get()
         .then((snapshot) => {
           assert.equal(snapshot.size, 0);
           return;
         })
         .catch((err) => {
           console.log('Error getting documents', err);
-        });*/
+        });
 
       const req = { query: { text: 'addMessage' } };
       const res = {
         redirect: (code, url) => {
-          //assert.equal(code, 303);
+          assert.equal(code, 303);
           var db = admin.firestore();
           return db.collection('users').get()
             .then((snapshot) => {
@@ -92,6 +103,7 @@ describe('Cloud Functions', () => {
             });
         }
       };
+      // this have to be chained to previous assert?
       myFunctions.addData(req, res);
     });
   });
