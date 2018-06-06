@@ -6,6 +6,7 @@
     "test": "npm run test-offline",
     "test-online": "mocha --reporter spec test/test.online.js --exit",
     "test-offline": "mocha --reporter spec test/test.offline.js --exit",
+    "test-local": "mocha --reporter spec test/test.local.js --exit",
     "lint": "eslint .",
     "serve": "firebase serve --only functions",
     "shell": "firebase functions:shell",
@@ -14,6 +15,7 @@
     "logs": "firebase functions:log"
   },
   "dependencies": {
+    "firebase": "^5.0.4",
     "firebase-admin": "~5.12.1",
     "firebase-functions": "^1.0.3"
   },
