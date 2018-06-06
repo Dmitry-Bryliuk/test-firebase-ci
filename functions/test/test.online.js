@@ -29,9 +29,10 @@ const admin = require('firebase-admin');
 const projectConfig = {
   projectId: "test-ci-b56e8",
   databaseURL: "https://test-ci-b56e8.firebaseio.com",
+//  databaseURL: "http://localhost:5000",
   storageBucket: "test-ci-b56e8.appspot.com"
 };
-const test = require('firebase-functions-test')(projectConfig, './service-account-key.json');
+const test = require('firebase-functions-test')(projectConfig, '../service-account-key-firebase.json');
 
 describe('Cloud Functions', () => {
   let myFunctions;
@@ -90,7 +91,7 @@ describe('Cloud Functions', () => {
           var db = admin.firestore();
           return db.collection('users').get()
             .then((snapshot) => {
-              //assert.equal(snapshot.size, 2);
+              assert.equal(snapshot.size, 2);
               snapshot.forEach((doc) => {
                 console.log(doc.id, '=>', doc.data());
               });
