@@ -1,6 +1,14 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-admin.initializeApp();
+//admin.initializeApp();
+
+// try local connections
+var serviceAccount = require('../service-account-key-firebase.json');
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "http://localhost:5000"
+});
 
 // https://us-central1-test-ci-b56e8.cloudfunctions.net/addMessage
 
