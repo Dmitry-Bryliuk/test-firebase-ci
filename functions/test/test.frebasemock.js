@@ -1,12 +1,20 @@
-const admin = require('firebase-admin');
+//const admin = require('firebase-admin');
 const firebasemock = require('firebase-mock');
 
-firebasemock.MockFirebase.override = function () {
-    firebase = firebasemock.MockFirebaseSdk();
-    Firebase = firebasemock.MockFirebase;
-};
+//firebasemock.MockFirebase.override = function () {
+firebase = firebasemock.MockFirebaseSdk();
+Firebase = firebasemock.MockFirebase;
+//};
 
-firebasemock.MockFirebase.override();
+//firebasemock.MockFirebase.override();
+
+window = {};
+window.firebasemock = firebasemock;
+window.MockFirebase = window.firebasemock.MockFirebase;
+window.MockFirebaseSdk = window.firebasemock.MockFirebaseSdk;
+window.firebase = firebase;//window.firebasemock.MockFirebaseSdk();
+window.Firebase = Firebase;//window.firebasemock.MockFirebase;
+
 
 /*var db = firebase.firestore();
 
@@ -118,3 +126,13 @@ newPersonRef.then(function (doc) {
     console.assert(doc.get('first') === 'James', 'James was created');
 });
 people.collection().flush();
+
+setImmediate(() => console.log("setImmediate"));
+setTimeout(() => console.log("setTimeout"), 0);
+setTimeout(() => console.log("setTimeout1000"), 1000);
+process.nextTick(console.log, "process.nextTick");
+
+var promise1 = new Promise(function (resolve, reject) { setTimeout(resolve, 100, 'foo'); });
+//promise1.then((a) => { console.log("then a:", a); return new Promise((a,b) => { console.log("in promise"); a(); return "b"; }); }).then((b) => { console.log("then b:", b) })
+//promise1.then((a) => { console.log("then a:", a); return "b"; }).then((b) => { console.log("then b:", b) })
+promise1.then((a) => { console.log("then a:", a); return new Promise((resolve) => { console.log("in promise"); resolve("b"); }); }).then((b) => { console.log("then b:", b) })
